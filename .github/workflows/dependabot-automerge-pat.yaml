@@ -20,7 +20,7 @@ jobs:
           METADATA_OUTPUT: ${{ toJson(steps.metadata.outputs) }}
         run: echo "$METADATA_OUTPUT"
       - name: Enable auto-merge for Dependabot PRs
-        if: ${{contains(steps.metadata.outputs.dependency-names, 'bci/bci-base') && steps.metadata.outputs.update-type == 'version-update:semver-patch' && steps.dependabot-metadata.outputs.directory == '/pat'}}
+        if: ${{contains(steps.metadata.outputs.dependency-names, 'bci/bci-base') && steps.metadata.outputs.update-type == 'version-update:semver-patch' && steps.dependabot-metadata.outputs.directory == '/pat2'}}
         run: gh pr merge --auto --merge "$PR_URL"
         env:
           PR_URL: ${{github.event.pull_request.html_url}}
