@@ -1,7 +1,7 @@
 version: 2
 updates:
   - package-ecosystem: "docker"
-    directory: "/pat2"
+    directory: "/pat3"
     schedule:
       interval: "daily"
     labels:
