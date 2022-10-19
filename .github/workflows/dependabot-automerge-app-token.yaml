@@ -8,8 +8,14 @@ permissions:
 jobs:
   dependabot:
     runs-on: ubuntu-latest
-    if: ${{ github.actor == 'dependabot[bot]' && contains(github.event.pull_request.title, '/pat3') }}
+    if: ${{ github.actor == 'dependabot[bot]' && contains(github.event.pull_request.title, '/app-token') }}
     steps:
+      - uses: tibdex/github-app-token@v1
+        id: get_installation_token
+        with: 
+          app_id: 250668
+          installation_id: 30381326
+          private_key: ${{secrets.PRIVATE_KEY}}
       - name: Dependabot metadata
         id: metadata
         uses: dependabot/fetch-metadata@v1.3.4
@@ -24,4 +30,4 @@ jobs:
         run: gh pr merge --auto --merge "$PR_URL"
         env:
           PR_URL: ${{github.event.pull_request.html_url}}
-          GITHUB_TOKEN: ${{secrets.DB_PAT}}
+          GITHUB_TOKEN: ${{steps.get_installation_token.outputs.token}}
